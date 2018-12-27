@@ -66,12 +66,13 @@ def send_email_smtp(to, subject, html_content, files=None,
     >>> send_email('test@example.com', 'foo', '<b>Foo</b> bar', ['/dev/null'], dryrun=True)
     """
     SMTP_MAIL_FROM = configuration.conf.get('smtp', 'SMTP_MAIL_FROM')
+    SMTP_MIME_FROM = configuration.conf.get('smtp', 'SMTP_MIME_FROM')
 
     to = get_email_address_list(to)
 
     msg = MIMEMultipart(mime_subtype)
     msg['Subject'] = subject
-    msg['From'] = SMTP_MAIL_FROM
+    msg['From'] = SMTP_MIME_FROM
     msg['To'] = ", ".join(to)
     recipients = to
     if cc:
